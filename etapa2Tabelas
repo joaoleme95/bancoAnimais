@@ -1,0 +1,137 @@
+-- EXERCICIO 1
+
+-- Cria a tabela de espécies
+CREATE TABLE especies (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(255),
+    descricao TEXT
+);
+
+-- Cria a tabela de animais relacionados às espécies
+CREATE TABLE animais (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(255),
+    data_nasc DATE,
+    peso DECIMAL(4, 2),
+    especie_id INT,
+    FOREIGN KEY (especie_id) REFERENCES especies(id)
+);
+
+-- Inserção de espécies
+INSERT INTO especies (nome, descricao) VALUES
+('Leão', 'Grande felino'),
+('Elefante', 'Maior mamífero terrestre.'),
+('Tigre', 'Feroz predador');
+
+-- Inserção de animais relacionados às espécies
+-- Espécie: Leão
+INSERT INTO animais (nome, data_nasc, peso, especie_id) VALUES
+('Simba', '2010-05-15', 180.5, 1),
+('Nala', '2011-02-28', 160.2, 1);
+
+-- Espécie: Elefante
+INSERT INTO animais (nome, data_nasc, peso, especie_id) VALUES
+('Dumbo', '2008-11-10', 4500.8, 2),
+('Babar', '2009-07-20', 3800.2, 2);
+
+-- Espécie: Tigre
+INSERT INTO animais (nome, data_nasc, peso, especie_id) VALUES
+('Simbad', '2012-04-05', 250.5, 3),
+('Gugu', '2013-08-12', 220.2, 3);
+
+
+
+
+
+
+
+--EXERCICIO 2
+
+-- Cria a tabela de marcas
+CREATE TABLE marcas (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(255),
+    site_oficial VARCHAR(255),
+    telefone VARCHAR(20)
+);
+
+-- Cria a tabela de produtos relacionados às marcas
+CREATE TABLE produtos (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(255),
+    preco_custo DECIMAL(8, 2),
+    preco_venda DECIMAL(8, 2),
+    data_validade DATE,
+    marca_id INT,
+    FOREIGN KEY (marca_id) REFERENCES marcas(id)
+);
+
+-- Inserção de marcas
+INSERT INTO marcas (nome, site_oficial, telefone) VALUES
+('Apple', 'www.apple.com', '123-4567'),
+('Samsung', 'www.samsung.com', '987-6543'),
+('Sony', 'www.sony.com', '555-1212');
+
+-- Inserção de produtos relacionados às marcas
+-- Marca: Apple
+INSERT INTO produtos (nome, preco_custo, preco_venda, data_validade, marca_id) VALUES
+('iPhone 13', 800.0, 1200.0, '2023-12-31', 1),
+('MacBook Pro', 1500.0, 2200.0, '2024-06-30', 1);
+
+-- Marca: Samsung
+INSERT INTO produtos (nome, preco_custo, preco_venda, data_validade, marca_id) VALUES
+('Galaxy S22', 700.0, 1100.0, '2023-11-30', 2),
+('Samsung TV', 500.0, 750.0, '2024-03-31', 2);
+
+-- Marca: Sony
+INSERT INTO produtos (nome, preco_custo, preco_venda, data_validade, marca_id) VALUES
+('PlayStation 5', 400.0, 600.0, '2023-10-31', 3),
+('Sony Camera', 300.0, 500.0, '2024-02-28', 3);
+
+
+
+
+
+
+
+
+--EXERCICIO 3
+
+-- Cria a tabela de categorias
+CREATE TABLE categorias (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(255),
+    publico_alvo VARCHAR(255)
+);
+
+-- Cria a tabela de filmes relacionados às categorias
+CREATE TABLE filmes (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    titulo VARCHAR(255),
+    sinopse TEXT,
+    estudio VARCHAR(255),
+    categoria_id INT,
+    FOREIGN KEY (categoria_id) REFERENCES categorias(id)
+);
+
+-- Inserção de categorias
+INSERT INTO categorias (nome, publico_alvo) VALUES
+('Ação', 'Adulto'),
+('Comédia', 'Família'),
+('Drama', 'Adulto');
+
+-- Inserção de filmes relacionados às categorias
+-- Categoria: Ação
+INSERT INTO filmes (titulo, sinopse, estudio, categoria_id) VALUES
+('Duro de Matar', 'Um policial enfrenta terroristas em um prédio.', 'Century Fox', 1),
+('Mad Max: Estrada da Fúria', 'Um mundo pós-apocalíptico', 'Warner Bros', 1);
+
+-- Categoria: Comédia
+INSERT INTO filmes (titulo, sinopse, estudio, categoria_id) VALUES
+('Esqueceram de Mim', 'Um garoto fica sozinho em casa durante o Natal', 'Century Fox', 2),
+('Superbad', 'Dois amigos se metem em confusões na escola.', 'Columbia Pictures', 2);
+
+-- Categoria: Drama
+INSERT INTO filmes (titulo, sinopse, estudio, categoria_id) VALUES
+('Clube da Luta', 'Um homem forma um clube secreto de luta.', 'Century Fox', 3),
+('O Pianista', 'História real de um pianista Segunda Guerra Mundial.', 'Focus Features', 3);
