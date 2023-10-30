@@ -1,0 +1,78 @@
+-- Cria a tabela de espécies
+CREATE TABLE especies (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(255),
+    descricao TEXT
+);
+
+-- Insere espécies
+INSERT INTO especies (nome, descricao) VALUES
+('Leão', 'Grande felino africano.'),
+('Elefante', 'Maior mamífero terrestre.'),
+('Tigre', 'Feroz predador felino.');
+
+-- Cria a tabela de animais relacionados às espécies
+CREATE TABLE animais (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(255),
+    data_nasc DATE,
+    peso DECIMAL(4, 2),
+    especie_id INT,
+    FOREIGN KEY (especie_id) REFERENCES especies(id)
+);
+
+-- Insere animais relacionados às espécies
+-- Espécie: Leão
+INSERT INTO animais (nome, data_nasc, peso, especie_id) VALUES
+('Simba', '2010-05-15', 180.5, 1),
+('Nala', '2011-02-28', 160.2, 1);
+
+-- Espécie: Elefante
+INSERT INTO animais (nome, data_nasc, peso, especie_id) VALUES
+('Dumbo', '2008-11-10', 4500.8, 2),
+('Babar', '2009-07-20', 3800.2, 2);
+
+-- Espécie: Tigre
+INSERT INTO animais (nome, data_nasc, peso, especie_id) VALUES
+('Simbad', '2012-04-05', 250.5, 3),
+('Shere Khan', '2013-08-12', 220.2, 3);
+
+-- Realize as consultas
+-- 1. Selecione todos os animais
+SELECT * FROM animais;
+
+-- 2. Selecione todos os animais que pesam menos que 13.1
+SELECT * FROM animais WHERE peso < 13.1;
+
+-- 3. Selecione todos que nasceram entre fevereiro e dezembro de 2015
+SELECT * FROM animais WHERE data_nasc BETWEEN '2015-02-01' AND '2015-12-31';
+
+-- 4. Selecione todos os animais brancos que pesam menos que 15.0
+SELECT * FROM animais WHERE cor = 'Branco' AND peso < 15.0;
+
+-- 5. Selecione nome, cor e peso de todos cujo nome comece com 'B'
+SELECT nome, cor, peso FROM animais WHERE nome LIKE 'B%';
+
+-- 6. Selecione nome, cor e peso de todos com cor vermelha, amarela, marrom e laranja
+SELECT nome, cor, peso FROM animais WHERE cor IN ('Vermelho', 'Amarelo', 'Marrom', 'Laranja');
+
+-- 7. Selecione nome, cor, data de nascimento e peso de todos ordenados pelos mais jovens
+SELECT nome, cor, data_nasc, peso FROM animais ORDER BY data_nasc ASC;
+
+-- 8. Selecione todos os animais cujo nome comece com 'C' e não sejam brancos
+SELECT * FROM animais WHERE nome LIKE 'C%' AND cor <> 'Branco';
+
+-- 9. Selecione todos os animais cujo nome contenha 'ba'
+SELECT * FROM animais WHERE nome LIKE '%ba%';
+
+-- 10. Selecione todos os animais com peso entre 13.0 e 15.0
+SELECT * FROM animais WHERE peso BETWEEN 13.0 AND 15.0;
+
+-- 11. Selecione todos os animais que o peso não seja maior que 30, com cor amarelo ou roxo e nascidos depois de 2012
+SELECT * FROM animais WHERE peso <= 30 AND (cor = 'Amarelo' OR cor = 'Roxo') AND YEAR(data_nasc) > 2012;
+
+-- 12. (Desafio) Selecione todos os capricornianos (assumindo que o campo data_nasc representa a data de nascimento)
+SELECT * FROM animais WHERE (MONTH(data_nasc) = 12 AND DAY(data_nasc) >= 22) OR (MONTH(data_nasc) = 1 AND DAY(data_nasc) <= 19);
+
+-- 13. (Desafio) Selecione todos os animais com nome formado por mais de uma palavra.
+SELECT * FROM animais WHERE nome LIKE '% %';
